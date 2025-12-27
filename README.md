@@ -26,30 +26,84 @@ A Next.js + Python application for professional AI-powered background removal an
 - Python 3.9+
 - pip
 
-### 1. Install Dependencies
+### Installation
+
+**First time setup - Install all dependencies:**
+
+**Option 1: Using npm (Recommended)**
 
 ```bash
-# Install Node.js dependencies
-npm install
-
-# Install Python dependencies
-cd api
-pip install -r requirements.txt
-cd ..
+npm run install:all
 ```
 
-### 2. Run Development Servers
+**Option 2: Using platform-specific scripts**
+
+**Windows (PowerShell):**
+
+```powershell
+.\install.ps1
+```
+
+**Linux/macOS (Bash):**
+
+```bash
+chmod +x install.sh
+./install.sh
+```
+
+This will:
+
+- ✅ Install Node.js dependencies
+- ✅ Create Python virtual environment (venv)
+- ✅ Install Python dependencies in isolated environment
+
+### Running the Application
+
+**Option 1: Using npm scripts (Recommended)**
+
+```bash
+npm run start
+```
+
+This will automatically start both servers using the virtual environment.
+
+To stop both servers:
+
+```bash
+npm run stop:all
+```
+
+**Option 2: Using platform-specific scripts**
+
+**Windows (PowerShell):**
+
+```powershell
+.\start.ps1
+.\stop.ps1
+```
+
+**Linux/macOS (Bash):**
+
+```bash
+chmod +x start.sh stop.sh
+./start.sh
+./stop.sh
+```
+
+**Option 3: Manual setup**
 
 **Terminal 1 - Python API:**
 
 ```bash
 cd api
+pip install -r requirements.txt
 python -m uvicorn main:app --reload --port 8000
 ```
 
 **Terminal 2 - Next.js:**
 
 ```bash
+npm install
 npm run dev
 ```
 
@@ -71,21 +125,25 @@ This project is configured for single-command deployment to Vercel with both Nex
 #### Option 2: Deploy via CLI
 
 1. Install Vercel CLI:
+
 ```bash
 npm i -g vercel
 ```
 
 2. Login to Vercel:
+
 ```bash
 vercel login
 ```
 
 3. Deploy:
+
 ```bash
 vercel --prod
 ```
 
 Vercel will automatically:
+
 - Build and deploy the Next.js frontend
 - Deploy the Python FastAPI backend as serverless functions (`/api/index.py`)
 - Configure routing between them
