@@ -1,0 +1,7 @@
+python-api/
+node_modules/
+.next/
+.env*.local
+*.pyc
+__pycache__/
+venv/

@@ -1,36 +1,151 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Image Background Removal & Processing
 
-## Getting Started
+A Next.js + Python application for professional AI-powered background removal and image processing.
 
-First, run the development server:
+## Features
+
+- 🎨 **AI Background Removal** - High-quality background removal using rembg (U2-Net model)
+- 📁 **Upload or URL** - Process images from file upload or direct URL
+- 🎨 **Custom Backgrounds** - Transparent, RGB, or custom color backgrounds
+- 📏 **Smart Resize** - Resize with automatic aspect ratio preservation
+- 💾 **Multiple Formats** - Export as PNG, JPEG, or WebP
+- 🚀 **Vercel Ready** - Deploy both Next.js and Python API together
+
+## Tech Stack
+
+- **Frontend**: Next.js 16, React 19, TailwindCSS, shadcn/ui
+- **Backend**: Python FastAPI with rembg (AI background removal)
+- **AI Model**: U2-Net via rembg library
+- **Deployment**: Vercel (unified deployment)
+
+## Local Development Setup
+
+### Prerequisites
+
+- Node.js 18+
+- Python 3.9+
+- pip
+
+### 1. Install Dependencies
+
+```bash
+# Install Node.js dependencies
+npm install
+
+# Install Python dependencies
+cd api
+pip install -r requirements.txt
+cd ..
+```
+
+### 2. Run Development Servers
+
+**Terminal 1 - Python API:**
+
+```bash
+cd api
+python -m uvicorn main:app --reload --port 8000
+```
+
+**Terminal 2 - Next.js:**
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open [http://localhost:3000](http://localhost:3000)
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Vercel Deployment
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+This project is configured for single-command deployment to Vercel with both Next.js and Python APIs.
 
-## Learn More
+### Quick Deploy
 
-To learn more about Next.js, take a look at the following resources:
+#### Option 1: Deploy via Vercel Dashboard (Recommended)
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+1. Push your code to GitHub
+2. Go to [vercel.com](https://vercel.com) and import your repository
+3. Vercel will automatically detect Next.js and deploy everything
+4. Done! Your app will be live in minutes
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+#### Option 2: Deploy via CLI
 
-## Deploy on Vercel
+1. Install Vercel CLI:
+```bash
+npm i -g vercel
+```
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+2. Login to Vercel:
+```bash
+vercel login
+```
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+3. Deploy:
+```bash
+vercel --prod
+```
+
+Vercel will automatically:
+- Build and deploy the Next.js frontend
+- Deploy the Python FastAPI backend as serverless functions (`/api/index.py`)
+- Configure routing between them
+- Generate a production URL
+
+### Environment Variables
+
+No environment variables needed! The app works out of the box.
+
+The Python API and Next.js will communicate on the same domain automatically.
+
+## How It Works
+
+1. **Upload**: User uploads image or provides URL
+2. **Configure**: Set background color, dimensions, and output format
+3. **Process**: Next.js sends request to Python API
+4. **AI Removal**: rembg removes background using U2-Net AI model
+5. **Transform**: Image is resized and background color applied
+6. **Download**: Processed image returned in selected format
+
+## Benefits
+
+- ✅ **Professional Quality** - Same quality as paid services like Remove.bg
+- ✅ **Free & Open Source** - No API keys or rate limits
+- ✅ **GPU Support** - Can use GPU for faster processing (when available)
+- ✅ **Offline Capable** - Works offline after initial model download
+- ✅ **Scalable** - Serverless functions scale automatically on Vercel
+
+## Project Structure
+
+```
+├── app/                    # Next.js app directory
+│   ├── api/               # Next.js API routes (proxy to Python)
+│   └── page.tsx           # Main page
+├── api/                    # Python FastAPI backend
+│   ├── main.py            # Background removal API
+│   └── requirements.txt   # Python dependencies
+├── components/            # React components
+│   ├── image-processor.tsx
+│   └── ui/               # shadcn components
+└── vercel.json           # Vercel deployment config
+```
+
+## API Endpoints
+
+### POST /api/remove-background
+
+Remove background from an image.
+
+**Parameters:**
+
+- `file`: Image file (multipart/form-data)
+- `imageUrl`: Image URL (alternative to file)
+- `backgroundColor`: Color value (e.g., "transparent", "rgb(255,255,255)", "#ffffff")
+- `width`: Target width in pixels (optional)
+- `height`: Target height in pixels (optional)
+- `format`: Output format - "png", "jpeg", or "webp"
+
+**Response:** Processed image file
+
+## License
+
+MIT
