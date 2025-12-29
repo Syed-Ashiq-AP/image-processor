@@ -11,7 +11,7 @@ RUN npm ci --ignore-scripts
 
 # Copy source files
 COPY next.config.ts tsconfig.json ./
-COPY next-env.d.ts components.json eslint.config.mjs postcss.config.mjs ./
+COPY components.json eslint.config.mjs postcss.config.mjs ./
 COPY app ./app
 COPY components ./components
 COPY lib ./lib
@@ -51,7 +51,7 @@ COPY next.config.ts tsconfig.json ./
 COPY app ./app
 COPY components ./components
 COPY lib ./lib
-COPY next-env.d.ts components.json eslint.config.mjs postcss.config.mjs ./
+COPY components.json eslint.config.mjs postcss.config.mjs ./
 
 # Expose ports
 EXPOSE 3000 8000
