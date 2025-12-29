@@ -1,0 +1,24 @@
+version: 2
+services:
+  - type: web
+    name: image-pro-api
+    env: python
+    buildCommand: pip install -r api/requirements-local.txt
+    startCommand: cd api && uvicorn main:app --host 0.0.0.0 --port $PORT
+    envVars:
+      - key: PYTHON_VERSION
+        value: 3.9
+    
+  - type: web
+    name: image-pro-frontend
+    env: node
+    buildCommand: npm install && npm run build
+    startCommand: npm start
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: PYTHON_API_URL
+        fromService:
+          type: web
+          name: image-pro-api
+          property: host

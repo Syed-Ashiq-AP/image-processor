@@ -109,51 +109,64 @@ npm run dev
 
 Open [http://localhost:3000](http://localhost:3000)
 
-## Vercel Deployment
+## Deployment Options
 
-This project is configured for single-command deployment to Vercel with both Next.js and Python APIs.
+### Quick Deploy to Railway (Recommended)
 
-### Quick Deploy
+Railway is the easiest way to deploy this app with full background removal support.
 
-#### Option 1: Deploy via Vercel Dashboard (Recommended)
+**One-Click Deploy:**
+1. Push to GitHub
+2. Go to [railway.app](https://railway.app)
+3. Click "New Project" → "Deploy from GitHub repo"
+4. Select this repository
+5. Done! Railway auto-deploys both services
 
-1. Push your code to GitHub
-2. Go to [vercel.com](https://vercel.com) and import your repository
-3. Vercel will automatically detect Next.js and deploy everything
-4. Done! Your app will be live in minutes
+See [DEPLOY.md](DEPLOY.md) for detailed deployment guides for Railway, Render, Docker, Fly.io, and more.
 
-#### Option 2: Deploy via CLI
+### Local Deployment (Best Quality)
 
-1. Install Vercel CLI:
+The app works best when run locally with full rembg support for professional-quality background removal.
+
+**Why Local is Better:**
+- ✅ Uses rembg with U2-Net AI model (professional quality)
+- ✅ No size/performance limitations
+- ✅ Completely free with no API costs
+- ✅ Works offline after initial setup
+- ✅ GPU acceleration support (if available)
+
+### Cloud Deployment Alternatives
+
+**Note:** Vercel has limitations for Python packages like rembg (250MB limit, no native compilation).
+
+**Recommended platforms for full functionality:**
+
+1. **Railway.app** - Best for Python + Next.js
+   - Supports large Python packages
+   - Easy deployment from GitHub
+   - Free tier available
+
+2. **Render.com** - Good Docker support
+   - Can run both services
+   - Supports native packages
+
+3. **DigitalOcean App Platform** - Simple container deployment
+   - Full Python support
+   - Affordable pricing
+
+4. **Fly.io** - Great for Docker deployments
+   - Worldwide edge deployment
+   - Free tier available
+
+### Vercel Deployment (Image Processing Only)
+
+You can deploy to Vercel for basic image processing (resize, format conversion, background colors) without AI background removal:
 
 ```bash
-npm i -g vercel
+npx vercel --prod
 ```
 
-2. Login to Vercel:
-
-```bash
-vercel login
-```
-
-3. Deploy:
-
-```bash
-vercel --prod
-```
-
-Vercel will automatically:
-
-- Build and deploy the Next.js frontend
-- Deploy the Python FastAPI backend as serverless functions (`/api/index.py`)
-- Configure routing between them
-- Generate a production URL
-
-### Environment Variables
-
-No environment variables needed! The app works out of the box.
-
-The Python API and Next.js will communicate on the same domain automatically.
+The Python API will work for image manipulation but background removal will be unavailable due to package size limits.
 
 ## How It Works
 
@@ -166,11 +179,12 @@ The Python API and Next.js will communicate on the same domain automatically.
 
 ## Benefits
 
-- ✅ **Professional Quality** - Same quality as paid services like Remove.bg
-- ✅ **Free & Open Source** - No API keys or rate limits
-- ✅ **GPU Support** - Can use GPU for faster processing (when available)
-- ✅ **Offline Capable** - Works offline after initial model download
-- ✅ **Scalable** - Serverless functions scale automatically on Vercel
+- ✅ **Professional Quality** - Uses rembg with U2-Net AI model (same quality as Remove.bg)
+- ✅ **Free & Open Source** - No API keys, no rate limits, completely free
+- ✅ **Best Performance** - Server-side processing with Python (not browser-based)
+- ✅ **Offline Capable** - Works offline after initial model download (~180MB)
+- ✅ **Privacy First** - All processing happens locally, no data sent to third parties
+- ✅ **Flexible Aspect Ratios** - Preset ratios (16:9, 1:1, etc.) or custom dimensions
 
 ## Project Structure
 

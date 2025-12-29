@@ -1,0 +1,7 @@
+fastapi
+rembg
+pillow
+requests
+python-multipart
+onnxruntime
+uvicorn
