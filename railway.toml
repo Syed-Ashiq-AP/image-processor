@@ -1,15 +1,8 @@
-# Railway Deployment Configuration
-#
-# Railway will automatically detect and deploy this project
-# No configuration file needed - Railway auto-detects Next.js + Python
-#
-# To deploy:
-# 1. Push to GitHub
-# 2. Go to railway.app
-# 3. Click "New Project" -> "Deploy from GitHub repo"
-# 4. Select this repository
-# 5. Railway will auto-detect both Next.js and Python services
-#
-# Environment Variables (if needed):
-# NODE_ENV=production
-# PYTHON_VERSION=3.9
+[build]
+builder = "DOCKERFILE"
+dockerfilePath = "Dockerfile"
+
+[deploy]
+startCommand = "/app/start.sh"
+restartPolicyType = "ON_FAILURE"
+restartPolicyMaxRetries = 10
