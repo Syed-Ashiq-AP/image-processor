@@ -1,7 +1,7 @@
-fastapi
-rembg
-pillow
-requests
-python-multipart
-onnxruntime
-uvicorn
+fastapi>=0.115.0
+rembg>=2.0.69
+pillow>=11.0.0
+requests>=2.32.0
+python-multipart>=0.0.20
+onnxruntime>=1.21.0
+uvicorn[standard]>=0.40.0
